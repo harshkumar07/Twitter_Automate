@@ -87,14 +87,18 @@ async function generateContent(message: string) {
 
                 if (phoneInput) {
                     console.log("📱 Filling phone number...");
+                    await page.waitForTimeout(3000);
                     await phoneInput.fill(process.env.TWITTER_PHONE!);
+                    console.log("Phone number filled");
                     await page.keyboard.press("Enter");
                     await page.waitForTimeout(3000);
                 }
 
                 // Retry password after phone
-                await page.waitForSelector('input[name="password"]', { timeout: 5000 });
+                await page.waitForSelector('input[name="password"]');
+                await page.waitForTimeout(10000);
                 await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
+                console.log("Password filled");
                 await page.keyboard.press("Enter");
                 await page.waitForTimeout(3000);
                 console.log("Login Successfully")
