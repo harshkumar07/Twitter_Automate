@@ -17,15 +17,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          
-      - name: Install dotenv
-        run: npm install dotenv
 
-      - name: Install @google/generative-ai
-        run: npm install @google/generative-ai
+    #   - name: Install dotenv
+    #     run: npm install dotenv
 
-      - name: Install playwright
-        run: npm install playwright
+    #   - name: Install @google/generative-ai
+    #     run: npm install @google/generative-ai
+
+    #   - name: Install playwright
+    #     run: npm install playwright
 
       - name: Install remaining dependencies
         run: npm install
