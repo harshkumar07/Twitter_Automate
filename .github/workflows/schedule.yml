@@ -29,4 +29,4 @@ jobs:
           echo "TWITTER_PHONE=${{ secrets.TWITTER_PHONE }}" >> .env
 
       - name: Run Twitter Bot
-        run: npx ts-node schedule.ts
+        run: npx ts-node twitter-bot.ts
