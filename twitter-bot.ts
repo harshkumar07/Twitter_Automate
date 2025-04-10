@@ -97,35 +97,40 @@ async function generateContent(message: string) {
                 await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
                 await page.keyboard.press("Enter");
                 await page.waitForTimeout(3000);
+                console.log("Login Successfully")
             } catch (err) {
                 process.exit(1);
             }
         }
 
 
-        const errorText = await page.locator("text=Something went wrong").first();
-        if (await errorText.isVisible()) {
-            console.warn("⚠️ Twitter login error: 'Something went wrong'.");
-            const tryAgain = await page.locator("text=Try again").first();
-            if (await tryAgain.isVisible()) {
-                console.log("🔁 Retrying login...");
-                await tryAgain.click();
-                await page.waitForTimeout(3000);
-            } else {
-                await page.screenshot({ path: "error-login-failed.png" });
-                process.exit(1);
-            }
-        }
+        // const errorText = await page.locator("text=Something went wrong").first();
+        // if (await errorText.isVisible()) {
+        //     console.warn("⚠️ Twitter login error: 'Something went wrong'.");
+        //     const tryAgain = await page.locator("text=Try again").first();
+        //     if (await tryAgain.isVisible()) {
+        //         console.log("🔁 Retrying login...");
+        //         await tryAgain.click();
+        //         await page.waitForTimeout(3000);
+        //     } else {
+        //         await page.screenshot({ path: "error-login-failed.png" });
+        //         process.exit(1);
+        //     }
+        // }
 
  
         console.log("🚀 Navigating to tweet composer...");
         await page.goto("https://x.com/compose/post");
         await page.waitForTimeout(3000);
+        console.log("Post page");
       
         await page.keyboard.type(tweet, { delay: 20 });
+        console.log("typing data");
         await page.getByRole("button", { name: "Choose audience" }).click();
+        console.log("select");
         await page.waitForTimeout(3000);
         await page.getByRole('menuitem', { name: 'Build in Public' }).click();
+        console.log("Index 1");
         
         await page.waitForTimeout(2000);
 
