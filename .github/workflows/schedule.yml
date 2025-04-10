@@ -24,7 +24,7 @@ jobs:
     #   - name: Install @google/generative-ai
     #     run: npm install @google/generative-ai
 
-    #   - name: Install playwright
+    #   - name: Install playwright 
     #     run: npm install playwright
 
       - name: Install dependencies
