@@ -48,7 +48,7 @@ async function generateContent(message: string) {
         process.exit(1);
     }
 
-    const browser = await firefox.launch({ headless: false });
+    const browser = await firefox.launch({ headless: true });
     const page = await browser.newPage();
 
     try {
