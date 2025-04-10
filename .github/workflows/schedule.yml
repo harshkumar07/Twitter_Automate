@@ -1,0 +1,32 @@
+name: Auto Tweet Every Hour
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Every hour
+  workflow_dispatch:     # Allows manual trigger from GitHub UI
+
+jobs:
+  post-tweet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env file from GitHub secrets
+        run: |
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "TWITTER_USERNAME=${{ secrets.TWITTER_USERNAME }}" >> .env
+          echo "TWITTER_PASSWORD=${{ secrets.TWITTER_PASSWORD }}" >> .env
+          echo "TWITTER_PHONE=${{ secrets.TWITTER_PHONE }}" >> .env
+
+      - name: Run Twitter Bot
+        run: npx ts-node twitter-bot.ts
