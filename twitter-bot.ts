@@ -48,7 +48,7 @@ async function generateContent(message: string) {
         process.exit(1);
     }
 
-    const browser = await firefox.launch({ headless: true });
+    const browser = await firefox.launch({ headless: false });
     const page = await browser.newPage();
 
     try {
@@ -97,10 +97,25 @@ async function generateContent(message: string) {
 
                 // Retry password after phone
                 console.log("Password Type");
-                await page.waitForSelector('input[name="password"]');
-                console.log("Password");
-                await page.waitForTimeout(5000);
-                await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
+                const passwordSpan = await page.waitForSelector(
+                    'xpath=/html/body/div/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[1]/div/span'
+                  );
+                  
+                  console.log("🖱️ Clicking password span to activate input...");
+                  await passwordSpan.click({ force: true });
+                  
+                  // Wait a moment for the input to appear
+                  await page.waitForTimeout(1000);
+                  
+                  // 🔍 Now select the actual password input field
+                  const passwordInput = await page.waitForSelector('input[type="password"]:not([disabled])');
+                  
+                  console.log("⌨️ Filling in password...");
+                  await passwordInput.fill(process.env.TWITTER_PASSWORD!);
+                // await page.waitForSelector('input[name="password"]');
+                // console.log("Password");
+                // await page.waitForTimeout(5000);
+                // await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
                 console.log("Password filled");
                 await page.keyboard.press("Enter");
                 await page.waitForTimeout(3000);
