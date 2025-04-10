@@ -2,7 +2,7 @@ name: Auto Tweet Every Hour
 
 on:
   schedule:
-    - cron: '0 * * * *' # Every hour
+    - cron: '0 * * * *'  # Runs every hour
   workflow_dispatch:     # Allows manual trigger from GitHub UI
 
 jobs:
@@ -29,4 +29,4 @@ jobs:
           echo "TWITTER_PHONE=${{ secrets.TWITTER_PHONE }}" >> .env
 
       - name: Run Twitter Bot
-        run: npx ts-node twitter-bot.ts
+        run: npx ts-node schedule.ts
