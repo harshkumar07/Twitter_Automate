@@ -27,8 +27,11 @@ jobs:
     #   - name: Install playwright
     #     run: npm install playwright
 
-      - name: Install remaining dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci 
+
+    #   - name: Install remaining dependencies
+    #     run: npm install
 
 
       - name: Create .env file from GitHub secrets
