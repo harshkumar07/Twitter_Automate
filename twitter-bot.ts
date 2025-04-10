@@ -30,15 +30,15 @@ async function generateContent(message: string) {
         "Create a tweet about the impact of automation on daily workflows.",
         "Write a tweet highlighting the magic of building in public as a dev.",
         "Tweet an insight about how AI is augmenting human creativity."
-      ];
-      function getRandomPrompt(): string {
+    ];
+    function getRandomPrompt(): string {
         const index = Math.floor(Math.random() * tweetPrompts.length);
         return tweetPrompts[index];
-      }
-      
-   // const message = "Write a tweet about tech innovation.";
+    }
+
+    // const message = "Write a tweet about tech innovation.";
     const message = getRandomPrompt();
-    let tweet = await generateContent(message +"under 50 words");
+    let tweet = await generateContent(message + "under 50 words");
     // tweet= "This tweet was auto-generated using an AI tool while I enjoyed my coffee break. Curious how? Details in the reply. ☕📲"
 
 
@@ -48,7 +48,7 @@ async function generateContent(message: string) {
         process.exit(1);
     }
 
-    const browser = await firefox.launch({ headless: true });
+    const browser = await firefox.launch({ headless: false });
     const page = await browser.newPage();
 
     try {
@@ -97,28 +97,27 @@ async function generateContent(message: string) {
 
                 // Retry password after phone
                 console.log("Password Type");
-                const passwordSpan = await page.waitForSelector(
-                    'xpath=/html/body/div/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[1]/div/span'
-                  );
-                  
-                  console.log("🖱️ Clicking password span to activate input...");
-                  await passwordSpan.click({ force: true });
-                  
-                  // Wait a moment for the input to appear
-                  await page.waitForTimeout(1000);
-                  
-                  // 🔍 Now select the actual password input field
-                  const passwordInput = await page.waitForSelector('input[type="password"]:not([disabled])');
-                  
-                  console.log("⌨️ Filling in password...");
-                  await passwordInput.fill(process.env.TWITTER_PASSWORD!);
+
+                await page.click('div[dir="ltr"] input[name="password"]', { force: true });
+                console.log("🔐 Password input clicked");
+
+                // Wait a bit
+                await page.waitForTimeout(1000);
+
+                // Fill in the password
+                await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
+                console.log("🔑 Password filled");
+
+                // Submit with Enter
+                await page.keyboard.press("Enter");
+                console.log("⏎ Submitted password");
                 // await page.waitForSelector('input[name="password"]');
                 // console.log("Password");
                 // await page.waitForTimeout(5000);
                 // await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
-                console.log("Password filled");
-                await page.keyboard.press("Enter");
-                await page.waitForTimeout(3000);
+                // console.log("Password filled");
+                // await page.keyboard.press("Enter");
+                // await page.waitForTimeout(3000);
                 console.log("Login Successfully")
             } catch (err) {
                 process.exit(1);
@@ -140,12 +139,12 @@ async function generateContent(message: string) {
         //     }
         // }
 
- 
+
         console.log("🚀 Navigating to tweet composer...");
         await page.goto("https://x.com/compose/post");
         await page.waitForTimeout(3000);
         console.log("Post page");
-      
+
         await page.keyboard.type(tweet, { delay: 20 });
         console.log("typing data");
         await page.getByRole("button", { name: "Choose audience" }).click();
@@ -153,7 +152,7 @@ async function generateContent(message: string) {
         await page.waitForTimeout(3000);
         await page.getByRole('menuitem', { name: 'Build in Public' }).click();
         console.log("Index 1");
-        
+
         await page.waitForTimeout(2000);
 
         await page.click('button[data-testid="tweetButton"]');
