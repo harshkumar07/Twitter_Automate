@@ -4,14 +4,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "ts-node schedule.ts"
+    "start": "ts-node twitter-bot.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@google/generative-ai": "^0.24.0",
     "dotenv": "^16.4.7",
     "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
