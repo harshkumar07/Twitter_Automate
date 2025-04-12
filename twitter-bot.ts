@@ -98,35 +98,36 @@ async function generateContent(message: string) {
                 // Retry password after phone
                 console.log("Password Type");
 
-                // const passwordInput = await page.waitForSelector(
-                //     'xpath=/html/body/div/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input'
-                //   );
+                await page.keyboard.press("Enter");
+                const passwordInput = await page.waitForSelector(
+                    'xpath=/html/body/div/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[1]/div/div/div[3]/div/label/div/div[2]/div[1]/input'
+                  );
                   
-                //   // Click to focus the input
-                //   await passwordInput.click({ force: true });
-                //   console.log("🖱️ Clicked password input");
+                  // Click to focus the input
+                  await passwordInput.click({ force: true });
+                  console.log("🖱️ Clicked password input");
                   
-                //   // Fill the password
-                //   await passwordInput.fill(process.env.TWITTER_PASSWORD!);
-                //   console.log("🔐 Password filled");
+                  // Fill the password
+                  await passwordInput.fill(process.env.TWITTER_PASSWORD!);
+                  console.log("🔐 Password filled");
                   
-                //   // Submit by pressing Enter
-                //   await page.keyboard.press("Enter");
-                //   console.log("📨 Submitted login form");
+                  // Submit by pressing Enter
+                  await page.keyboard.press("Enter");
+                  console.log("📨 Submitted login form");
                   
 
                 // Press Enter to submit
-                await page.keyboard.press("Enter");
-                console.log("📨 Submitted login form");
+                // await page.keyboard.press("Enter");
+                // console.log("📨 Submitted login form");
 
-                await page.waitForSelector('input[name="password"]');
-                console.log("Password");
-                await page.waitForTimeout(5000);
-                await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
-                console.log("Password filled");
-                await page.keyboard.press("Enter");
-                await page.waitForTimeout(3000);
-                console.log("Login Successfully")
+                // await page.waitForSelector('input[name="password"]');
+                // console.log("Password");
+                // await page.waitForTimeout(5000);
+                // await page.fill('input[name="password"]', process.env.TWITTER_PASSWORD!);
+                // console.log("Password filled");
+                // await page.keyboard.press("Enter");
+                // await page.waitForTimeout(3000);
+                // console.log("Login Successfully")
             } catch (err) {
                 await page.screenshot({ path: "error-screenshot.png", fullPage: true });
                 process.exit(1);
