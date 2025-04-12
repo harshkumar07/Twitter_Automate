@@ -173,6 +173,7 @@ async function generateContent(message: string) {
 
     } catch (err) {
         console.error(" Unexpected error:", err);
+        await page.screenshot({ path: "error-screenshot.png", fullPage: true });
         process.exit(1);
     } finally {
         await browser.close();
