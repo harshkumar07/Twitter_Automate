@@ -165,8 +165,13 @@ async function generateContent(message: string) {
         await page.waitForTimeout(2000);
 
         // await page.click('button[data-testid="tweetButton"]');
-        await page.click('[data-testid="tweetButton"]');
-
+        const postButton = await page.waitForSelector(
+            'xpath=/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div[1]/div/div/div/div[2]/div[2]/div/div/div/button[2]',
+            { state: 'visible' }
+          );
+          
+          await postButton.click({ force: true });
+          
 
 
         console.log("✅ Tweet posted!");
