@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { firefox } from "playwright";
+import { chromium } from "playwright";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 dotenv.config();
 
@@ -48,7 +48,7 @@ async function generateContent(message: string) {
         process.exit(1);
     }
 
-    const browser = await firefox.launch({ headless: true });
+    const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
 
     try {
