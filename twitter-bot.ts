@@ -163,7 +163,17 @@ async function generateContent(message: string) {
         // console.log("Index 1");
 
         await page.waitForTimeout(2000);
-
+        
+        try {
+            const humanCheckBox = await page.waitForSelector('input[type="checkbox"][name="recaptcha"]', { timeout:10000 });
+            if (humanCheckBox) {
+                console.log("✅ Clicking 'Are you human?' checkbox...");
+                await humanCheckBox.click();
+            }
+        } catch (error) {
+            console.warn("No 'Are you human?' checkbox found.");
+        }
+        
         // await page.click('button[data-testid="tweetButton"]');
         const postButton = await page.waitForSelector(
             'xpath=/html/body/div[1]/div/div/div[1]/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div[1]/div/div/div/div[2]/div[2]/div/div/div/button[2]',
