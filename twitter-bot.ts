@@ -128,6 +128,7 @@ async function generateContent(message: string) {
                 // await page.waitForTimeout(3000);
                 console.log("Login Successfully")
             } catch (err) {
+                await page.screenshot({ path: "error-screenshot.png", fullPage: true });
                 process.exit(1);
             }
         }
