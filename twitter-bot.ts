@@ -156,11 +156,11 @@ async function generateContent(message: string) {
 
         await page.keyboard.type(tweet, { delay: 20 });
         console.log("typing data");
-        await page.getByRole("button", { name: "Choose audience" }).click();
-        console.log("select");
-        await page.waitForTimeout(3000);
-        await page.getByRole('menuitem', { name: 'Build in Public' }).click();
-        console.log("Index 1");
+        // await page.getByRole("button", { name: "Choose audience" }).click();
+        // console.log("select");
+        // await page.waitForTimeout(3000);
+        // await page.getByRole('menuitem', { name: 'Build in Public' }).click();
+        // console.log("Index 1");
 
         await page.waitForTimeout(2000);
 
