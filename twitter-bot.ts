@@ -164,7 +164,9 @@ async function generateContent(message: string) {
 
         await page.waitForTimeout(2000);
 
-        await page.click('button[data-testid="tweetButton"]');
+        // await page.click('button[data-testid="tweetButton"]');
+        await page.click('[data-testid="tweetButton"]');
+
 
 
         console.log("✅ Tweet posted!");
